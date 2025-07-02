@@ -1,0 +1,36 @@
+{
+  "application": {
+    "name": "fhir-server",
+    "type": "api",
+    "version": "1.0.0",
+    "compliance_level": ["hipaa", "fda", "gdpr"]
+  },
+  "infrastructure": {
+    "target": "ecs_fargate",
+    "scaling": {
+      "min_instances": 2,
+      "max_instances": 10,
+      "target_cpu": 60
+    },
+    "resources": {
+      "cpu": "512",
+      "memory": "1024",
+      "gpu": null
+    }
+  },
+  "security": {
+    "encryption_at_rest": true,
+    "encryption_in_transit": true,
+    "authentication": "jwt",
+    "authorization": "rbac",
+    "secrets_management": "aws_secrets"
+  },
+  "monitoring": {
+    "health_checks": {},
+    "metrics": [],
+    "logging": {},
+    "alerting": {}
+  },
+  "environment": {},
+  "dependencies": []
+}

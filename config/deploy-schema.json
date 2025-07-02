@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deployment Configuration Schema",
+  "type": "object",
+  "properties": {
+    "application": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["web-app", "api", "ai-agent", "automation", "iot", "real-time", "data-analytics"]
+        },
+        "version": { "type": "string" },
+        "compliance_level": {
+          "type": "array",
+          "items": { "enum": ["hipaa", "sox2", "fda", "gdpr"] }
+        }
+      },
+      "required": ["name", "type", "version", "compliance_level"]
+    },
+    "infrastructure": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string",
+          "enum": ["cloudfront_s3", "ecs_fargate", "eks_cluster", "lambda", "ec2"]
+        },
+        "scaling": {
+          "type": "object",
+          "properties": {
+            "min_instances": { "type": "number" },
+            "max_instances": { "type": "number" },
+            "target_cpu": { "type": "number" }
+          },
+          "required": ["min_instances", "max_instances", "target_cpu"]
+        },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "cpu": { "type": "string" },
+            "memory": { "type": "string" },
+            "gpu": { "type": ["string", "null"] }
+          },
+          "required": ["cpu", "memory", "gpu"]
+        }
+      },
+      "required": ["target", "scaling", "resources"]
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "encryption_at_rest": { "type": "boolean" },
+        "encryption_in_transit": { "type": "boolean" },
+        "authentication": { "enum": ["oauth2", "jwt", "api_key"] },
+        "authorization": { "enum": ["rbac", "abac"] },
+        "secrets_management": { "enum": ["aws_secrets", "vault"] }
+      },
+      "required": ["encryption_at_rest", "encryption_in_transit", "authentication", "authorization", "secrets_management"]
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "health_checks": { "type": "object" },
+        "metrics": { "type": "array" },
+        "logging": { "type": "object" },
+        "alerting": { "type": "object" }
+      },
+      "required": ["health_checks", "metrics", "logging", "alerting"]
+    },
+    "environment": { "type": "object" },
+    "dependencies": { "type": "array" }
+  },
+  "required": ["application", "infrastructure", "security", "monitoring"]
+}

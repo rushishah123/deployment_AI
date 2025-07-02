@@ -1,0 +1,36 @@
+{
+  "application": {
+    "name": "patient-portal",
+    "type": "web-app",
+    "version": "1.0.0",
+    "compliance_level": ["hipaa", "gdpr"]
+  },
+  "infrastructure": {
+    "target": "cloudfront_s3",
+    "scaling": {
+      "min_instances": 1,
+      "max_instances": 3,
+      "target_cpu": 50
+    },
+    "resources": {
+      "cpu": "256",
+      "memory": "512",
+      "gpu": null
+    }
+  },
+  "security": {
+    "encryption_at_rest": true,
+    "encryption_in_transit": true,
+    "authentication": "oauth2",
+    "authorization": "rbac",
+    "secrets_management": "aws_secrets"
+  },
+  "monitoring": {
+    "health_checks": {},
+    "metrics": [],
+    "logging": {},
+    "alerting": {}
+  },
+  "environment": {},
+  "dependencies": []
+}
