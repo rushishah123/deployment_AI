@@ -1,0 +1,36 @@
+{
+  "application": {
+    "name": "medical-assistant",
+    "type": "ai-agent",
+    "version": "1.0.0",
+    "compliance_level": ["hipaa", "gdpr"]
+  },
+  "infrastructure": {
+    "target": "eks_cluster",
+    "scaling": {
+      "min_instances": 1,
+      "max_instances": 5,
+      "target_cpu": 70
+    },
+    "resources": {
+      "cpu": "1024",
+      "memory": "2048",
+      "gpu": "1"
+    }
+  },
+  "security": {
+    "encryption_at_rest": true,
+    "encryption_in_transit": true,
+    "authentication": "oauth2",
+    "authorization": "abac",
+    "secrets_management": "vault"
+  },
+  "monitoring": {
+    "health_checks": {},
+    "metrics": [],
+    "logging": {},
+    "alerting": {}
+  },
+  "environment": {},
+  "dependencies": []
+}
